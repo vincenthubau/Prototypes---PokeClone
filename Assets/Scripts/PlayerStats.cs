@@ -29,11 +29,12 @@ public class PlayerStats : MonoBehaviour {
 		maxWC2 = Random.Range( 25, 50 );
 		walkCounter2 = Random.Range ( minWC2, maxWC2 );
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		//Movement
+		AnimateSprite sprite = gameObject.GetComponent<AnimateSprite>();
 
+		//Movement
 		if(increment <= 1 && isMoving == true){
 			increment += speed /100;
 		}
@@ -44,9 +45,16 @@ public class PlayerStats : MonoBehaviour {
 		if(isMoving){
 			transform.position = Vector3.Lerp(startPoint, endPoint, increment);
 		}
+		else{
+			sprite.totalCells = 1;
+		}
 
 		if(!isInCombat){
 			if(Input.GetKey("z") && isMoving == false){
+				//Sprite operations
+				sprite.rowNumber = 2;
+				sprite.totalCells = 3;
+
 				CalculateWalk();
 				increment = 0;
 				isMoving = true;
@@ -54,6 +62,9 @@ public class PlayerStats : MonoBehaviour {
 				endPoint = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 			}
 			else if(Input.GetKey("s") && isMoving == false){
+				sprite.rowNumber = 4;
+				sprite.totalCells = 3;
+
 				CalculateWalk();
 				increment = 0;
 				isMoving = true;
@@ -61,6 +72,9 @@ public class PlayerStats : MonoBehaviour {
 				endPoint = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
 			}
 			else if(Input.GetKey("d") && isMoving == false){
+				sprite.rowNumber = 3;
+				sprite.totalCells = 3;
+
 				CalculateWalk();
 				increment = 0;
 				isMoving = true;
@@ -68,6 +82,9 @@ public class PlayerStats : MonoBehaviour {
 				endPoint = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
 			}
 			else if(Input.GetKey("q") && isMoving == false){
+				sprite.rowNumber = 1;
+				sprite.totalCells = 3;
+
 				CalculateWalk();
 				increment = 0;
 				isMoving = true;
